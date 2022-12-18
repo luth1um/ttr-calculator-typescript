@@ -1,2 +1,3 @@
-# ttr-calculator-typescript
+# TTR Calculator
+
 A calculator for the table tennis rating.
