@@ -75,7 +75,7 @@ export function calculateTTRatingMultipeOpponents(ttPlayer: TTPlayer, playedGame
     numberOfGamesWon,
     expectedNumberWins,
     changeMuliplier,
-    ttPlayer.isYoungerThan18AndOpponentAverageYoungerThan18 ?? false
+    !!ttPlayer.isYoungerThan18AndOpponentAverageYoungerThan18
   );
 
   return {
