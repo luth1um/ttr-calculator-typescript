@@ -52,35 +52,6 @@ export interface TTRCalculationResult {
 }
 
 /**
- * Calculates the updated TTR value after having played a single game.
- * @param ttPlayer the player for whom the updated TTR rating will be calculated
- * @param playedGame the stats of the played game needed to calculate the updated TTR value
- * @returns the updated TTR value
- */
-export function calculateTTRating(ttPlayer: TTPlayer, playedGame: TTGame): TTRCalculationResult {
-  const changeMuliplier: number = calculateChangeMultiplier(
-    ttPlayer.isYoungerThan21 ?? false,
-    ttPlayer.isYoungerThan16 ?? false,
-    ttPlayer.lessThan30SingleGames ?? false,
-    ttPlayer.lessThan15SingleGamesAfterYearBreak ?? false
-  );
-  const expectedNumberWins = calulateWinningProbability(ttPlayer.ttRating, playedGame.opponentTTRating);
-  const numberOfGamesWon = playedGame.gameWasWon ? 1 : 0;
-  const ratingChange = calculateRatingChange(
-    numberOfGamesWon,
-    expectedNumberWins,
-    changeMuliplier,
-    ttPlayer.isYoungerThan18AndOpponentAverageYoungerThan18 ?? false
-  );
-
-  return {
-    updatedRating: ttPlayer.ttRating + ratingChange,
-    expectedNumberWins: expectedNumberWins,
-    ratingChange: ratingChange,
-  };
-}
-
-/**
  * Calculates the updated TTR value after having played multiple singles.
  * @param ttPlayer the player for whom the updated TTR rating will be calculated
  * @param playedGames the stats of the played games needed to calculate the updated TTR value
@@ -88,16 +59,15 @@ export function calculateTTRating(ttPlayer: TTPlayer, playedGame: TTGame): TTRCa
  */
 export function calculateTTRatingMultipeOpponents(ttPlayer: TTPlayer, playedGames: TTGame[]): TTRCalculationResult {
   const changeMuliplier: number = calculateChangeMultiplier(
-    ttPlayer.isYoungerThan21 ?? false,
-    ttPlayer.isYoungerThan16 ?? false,
-    ttPlayer.lessThan30SingleGames ?? false,
-    ttPlayer.lessThan15SingleGamesAfterYearBreak ?? false
+    !!ttPlayer.isYoungerThan21,
+    !!ttPlayer.isYoungerThan16,
+    !!ttPlayer.lessThan30SingleGames,
+    !!ttPlayer.lessThan15SingleGamesAfterYearBreak
   );
 
-  let expectedNumberWins = 0;
-  for (const playedGame of playedGames) {
-    expectedNumberWins += calulateWinningProbability(ttPlayer.ttRating, playedGame.opponentTTRating);
-  }
+  const expectedNumberWins = playedGames
+    .map((playedGame) => calulateWinningProbability(ttPlayer.ttRating, playedGame.opponentTTRating))
+    .reduce((expectedSum, expectedCurrent) => expectedSum + expectedCurrent, 0);
 
   const numberOfGamesWon = playedGames.filter((playedGame) => playedGame.gameWasWon).length;
 
@@ -138,7 +108,7 @@ function calculateChangeMultiplier(
 }
 
 function calulateWinningProbability(playerTTR: number, opponentTTR: number): number {
-  return 1 / (1 + Math.pow(10, (opponentTTR - playerTTR) / 150.0));
+  return 1 / (1 + Math.pow(10, (opponentTTR - playerTTR) / 150));
 }
 
 function calculateRatingChange(
