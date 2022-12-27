@@ -1,52 +1,53 @@
 export interface TTPlayer {
   /**
-   * TTR value before the game
+   * TTR value before the game.
    */
   ttRating: number;
   /**
-   * set to true if the player is younger than 21
+   * Set to *true* if the player is younger than 21.
+   * **This option must explicitly be set to *true* if *isYoungerThan16* is set to true!**
    */
   isYoungerThan21?: boolean;
   /**
-   * set to true if the player is younger than 16
+   * Set to *true* if the player is younger than 16.
    */
   isYoungerThan16?: boolean;
   /**
-   * set to true if the player is younger than 18 and the average age of all opponents is younger than 18
-   */
-  isYoungerThan18AndOpponentAverageYoungerThan18?: boolean;
-  /**
-   * set to true if the player has played less than 30 single games so far
+   * Set to *true* if the player has played less than 30 single games so far.
    */
   lessThan30SingleGames?: boolean;
   /**
-   * set to true if the player had a break for at least 1 year and less than 15 single games afterwards
+   * Set to *true* if the player has less than 15 games overall or less than 15 games after a break for a least one year.
    */
-  lessThan15SingleGamesAfterYearBreak?: boolean;
+  lessThan15SingleGamesOverallOrAfterYearBreak?: boolean;
 }
 
 export interface TTGame {
   /**
-   * rating of the opponent before the game was played
+   * Rating of the opponent before the game was played.
    */
   opponentTTRating: number;
   /**
-   * set to true if the game was won
+   * Set to *true* if the game was won.
    */
   gameWasWon: boolean;
 }
 
 export interface TTRCalculationResult {
   /**
-   * the updated rating after the game(s)
+   * The updated rating after the game(s).
    */
   updatedRating: number;
   /**
-   * the number of expected wins for the game(s)
+   * The number of expected wins for the game(s).
    */
   expectedNumberWins: number;
   /**
-   * the resulting change to the TTR value
+   * The winning expectation for each single TT game. The order of winning expectation is the same as the order of input TT games.
+   */
+  winExpectations: number[];
+  /**
+   * The resulting change to the TTR value.
    */
   ratingChange: number;
 }
@@ -62,25 +63,21 @@ export function calculateTTRatingMultipeOpponents(ttPlayer: TTPlayer, playedGame
     !!ttPlayer.isYoungerThan21,
     !!ttPlayer.isYoungerThan16,
     !!ttPlayer.lessThan30SingleGames,
-    !!ttPlayer.lessThan15SingleGamesAfterYearBreak
+    !!ttPlayer.lessThan15SingleGamesOverallOrAfterYearBreak
   );
 
-  const expectedNumberWins = playedGames
-    .map((playedGame) => calulateWinningProbability(ttPlayer.ttRating, playedGame.opponentTTRating))
-    .reduce((expectedSum, expectedCurrent) => expectedSum + expectedCurrent, 0);
+  const winExpectations = playedGames.map((playedGame) =>
+    calulateWinningProbability(ttPlayer.ttRating, playedGame.opponentTTRating)
+  );
+  const expectedNumberWins = winExpectations.reduce((expectedSum, expectedCurrent) => expectedSum + expectedCurrent, 0);
 
   const numberOfGamesWon = playedGames.filter((playedGame) => playedGame.gameWasWon).length;
-
-  const ratingChange = calculateRatingChange(
-    numberOfGamesWon,
-    expectedNumberWins,
-    changeMuliplier,
-    !!ttPlayer.isYoungerThan18AndOpponentAverageYoungerThan18
-  );
+  const ratingChange = calculateRatingChange(numberOfGamesWon, expectedNumberWins, changeMuliplier);
 
   return {
     updatedRating: ttPlayer.ttRating + ratingChange,
     expectedNumberWins: expectedNumberWins,
+    winExpectations: winExpectations,
     ratingChange: ratingChange,
   };
 }
@@ -114,12 +111,8 @@ function calulateWinningProbability(playerTTR: number, opponentTTR: number): num
 function calculateRatingChange(
   numberOfGamesWon: number,
   expectedNumberOfWins: number,
-  changeMuliplier: number,
-  isYoungerThan18AndOpponentAverageYoungerThan18: boolean
+  changeMuliplier: number
 ): number {
-  let ratingChange: number = (numberOfGamesWon - expectedNumberOfWins) * changeMuliplier;
-  if (isYoungerThan18AndOpponentAverageYoungerThan18) {
-    ratingChange += 2;
-  }
+  const ratingChange: number = (numberOfGamesWon - expectedNumberOfWins) * changeMuliplier;
   return Math.round(ratingChange);
 }
