@@ -16,7 +16,7 @@ The `TTPlayer` must contain (some of) the following information:
 - `lessThan30SingleGames: boolean` (optional): Set to `true` if the player has played less than 30 single games **overall**.
 - `lessThan15SingleGamesOverallOrAfterYearBreak` (optional): Set to `true` if the player had a break of **at least** one year and has played less than 15 single games since the break.
 
-The `TTGame[]` is an array of games that have been played during an event. For each game, the following information must be provided:
+`TTGame[]` is an array of games that have been played during an event. For each game, the following information must be provided:
 
 - `opponentTTRating: number`: The rating of the opponent player _before_ having played the game.
 - `gameWasWon: boolean`: Set to `true` if the game was won.
