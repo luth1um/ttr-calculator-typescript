@@ -29,3 +29,8 @@ The function `calculateTTRatingMultipeOpponents(ttPlayer: TTPlayer, playedGames:
 - `expectedNumberWins: number`: The number of expected wins for the game(s).
 - `winExpectations: number[]`: The winning expectation for each single TT game. The order of winning expectation is the same as the order of input TT games.
 - `ratingChange: number`: The change to the TTR value of the player.
+
+# 🔗 Links
+
+- TTR calculator on [GitHub](https://github.com/luth1um/ttr-calculator-typescript)
+- TTR calculator package on [npm](https://www.npmjs.com/package/ttr-calculator-typescript)
