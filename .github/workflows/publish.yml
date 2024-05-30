@@ -33,7 +33,7 @@ jobs:
         run: yarn pack --filename package.tgz
 
       - name: Publish 📰
-        run: npm publish package.tgz --provenance
+        run: npm publish package.tgz --provenance --tag latest --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
