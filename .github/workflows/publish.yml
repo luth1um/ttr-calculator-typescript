@@ -9,6 +9,9 @@ on:
 env:
   HUSKY: 0
 
+permissions:
+  id-token: write
+
 jobs:
   on-success:
     runs-on: ubuntu-latest
