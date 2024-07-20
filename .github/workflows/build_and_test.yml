@@ -20,7 +20,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install 🕝
-        run: yarn install --frozen-lockfile
+        run: yarn --immutable
 
       - name: Lint 🧐
         run: yarn lint
