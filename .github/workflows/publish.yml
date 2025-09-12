@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v5
+        with:
+          ref: 'release'
 
       - name: Setup pnpm 📦
         uses: pnpm/action-setup@v4
