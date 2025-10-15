@@ -48,5 +48,10 @@
       "eslint --fix --max-warnings 0"
     ],
     "*.{json,md,yaml,yml}": "prettier --write"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "unrs-resolver"
+    ]
   }
 }
