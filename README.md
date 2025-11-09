@@ -1,4 +1,4 @@
-![Build](https://github.com/luth1um/ttr-calculator-typescript/actions/workflows/build_and_test.yml/badge.svg?branch=main)
+[![CI pipeline](https://github.com/luth1um/ttr-calculator-typescript/actions/workflows/pipeline.yml/badge.svg)](https://github.com/luth1um/ttr-calculator-typescript/actions/workflows/pipeline.yml)
 
 # 🏓 TTR Calculator
 
