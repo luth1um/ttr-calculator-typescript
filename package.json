@@ -13,8 +13,6 @@
     "test": "jest",
     "clean": "rimraf dist",
     "build": "tsc",
-    "preversion": "pnpm clean && pnpm build",
-    "postversion": "git push --follow-tags",
     "prepare": "husky"
   },
   "repository": {
@@ -48,10 +46,5 @@
       "eslint --fix --max-warnings 0"
     ],
     "*.{json,md,yaml,yml}": "prettier --write"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "unrs-resolver"
-    ]
   }
 }
