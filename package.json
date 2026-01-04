@@ -1,6 +1,6 @@
 {
   "name": "ttr-calculator-typescript",
-  "version": "1.0.18",
+  "version": "2.0.0",
   "description": "A calculator for the table tennis rating written in TypeScript.",
   "type": "module",
   "main": "dist/index.js",
