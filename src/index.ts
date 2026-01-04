@@ -105,7 +105,7 @@ function calculateChangeMultiplier(
 }
 
 function calulateWinningProbability(playerTTR: number, opponentTTR: number): number {
-  return 1 / (1 + Math.pow(10, (opponentTTR - playerTTR) / 150));
+  return 1 / (1 + 10 ** ((opponentTTR - playerTTR) / 150));
 }
 
 function calculateRatingChange(
