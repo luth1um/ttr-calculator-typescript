@@ -10,7 +10,7 @@
   "scripts": {
     "format": "prettier --write \"./**/*.{js,json,md,ts,yaml,yml}\"",
     "lint": "oxlint --fix --deny-warnings",
-    "test": "jest",
+    "test": "vitest run",
     "clean": "rimraf dist",
     "build": "tsc",
     "prepare": "husky"
@@ -26,15 +26,13 @@
   "author": "luthium",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "30.0.0",
     "husky": "9.1.7",
-    "jest": "30.2.0",
     "lint-staged": "16.2.7",
     "oxlint": "1.36.0",
     "prettier": "3.7.4",
     "rimraf": "6.1.2",
-    "ts-jest": "29.4.6",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "4.0.16"
   },
   "lint-staged": {
     "*.{ts,js}": [

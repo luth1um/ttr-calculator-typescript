@@ -1,4 +1,5 @@
-import { calculateTTRatingMultipeOpponents, TTGame, TTPlayer, TTRCalculationResult } from '../src/index';
+import { calculateTTRatingMultipeOpponents, TTGame, TTPlayer, TTRCalculationResult } from '../src';
+import { expect, test } from 'vitest';
 
 test('The TTR calculator calculates the correct result for a won single adult game', () => {
   const ttPlayer: TTPlayer = { ttRating: 1544 };
