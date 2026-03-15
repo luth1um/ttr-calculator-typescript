@@ -2,6 +2,7 @@
   "name": "ttr-calculator-typescript",
   "version": "2.0.0",
   "description": "A calculator for the table tennis rating written in TypeScript.",
+  "homepage": "https://github.com/luth1um/ttr-calculator-typescript#readme",
   "type": "module",
   "main": "dist/index.js",
   "files": [
@@ -23,6 +24,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luth1um/ttr-calculator-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luth1um/ttr-calculator-typescript/issues"
   },
   "keywords": [
     "table tennis",
