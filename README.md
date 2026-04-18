@@ -2,6 +2,8 @@
 
 # 🏓 TTR Calculator
 
+This is a test PR.
+
 A calculator for the table tennis rating.
 
 # 🔎 Input
